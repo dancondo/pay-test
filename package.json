@@ -1,0 +1,22 @@
+{
+  "name": "pay-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dancondo/pay-test.git"
+  },
+  "author": "Danilo Condo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dancondo/pay-test/issues"
+  },
+  "homepage": "https://github.com/dancondo/pay-test#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
