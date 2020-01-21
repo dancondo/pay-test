@@ -11,13 +11,14 @@ const citiesController = require('../controllers/cities_controller');
  *     produces:
  *       - application/json
  *     parameters:
- *       - name: Latitude
- *         description: Latitude of a city
+ *       - in: query
+ *         name: only_with_weather
+ *         description: Rather if should return only results with weather info
  *         required: false
- *         type: integer
+ *         type: boolean
  *     responses:
  *       200:
- *         description: City list, or single city.
+ *         description: City list.
  */
 router.get('/', citiesController.index)
 
