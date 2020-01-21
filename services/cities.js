@@ -1,4 +1,5 @@
 const { cityList, weatherList } = require('../data/index.js');
+const { throwError, errors } = require('../utils/errors');
 
 /**
  * 
@@ -70,4 +71,9 @@ exports.findAll = (onlyWithWeather) => {
         }, [])
         : cityList
     return cities.map(city => cityDTO(city));
+}
+
+exports.findById = (id) => {
+    const city = cityList.find(city => city.id === id)
+    return city ? city : throwError(errors.NOT_FOUND) 
 }
