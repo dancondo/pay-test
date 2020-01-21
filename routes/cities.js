@@ -19,6 +19,11 @@ const citiesController = require('../controllers/cities_controller');
  *     responses:
  *       200:
  *         description: City list.
+ *         schema:
+ *           type: array
+ *           items: 
+ *             allOf:
+ *               - $ref: '#/definitions/City'
  */
 router.get('/', citiesController.index);
 
@@ -39,6 +44,9 @@ router.get('/', citiesController.index);
  *     responses:
  *       200:
  *         description: A City and its weather
+ *         schema:
+ *           allOf:
+ *             - $ref: '#/definitions/City'
  *       404:
  *         description: Couldn't find a city
  */
