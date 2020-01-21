@@ -48,6 +48,10 @@ module.exports = class City {
 
     static findById(id) {
         const city = cityList.find(city => city.id === id)
-        return city ? city : throwError(errors.NOT_FOUND) 
+        if (city) {
+            city.weather = Weather.findByCityId(city.id)
+            return new City(city);
+        }
+        return throwError(errors.NOT_FOUND) 
     }
 }
