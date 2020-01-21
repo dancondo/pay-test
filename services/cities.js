@@ -1,5 +1,6 @@
 const { cityList, weatherList } = require('../data/index.js');
 const { throwError, errors } = require('../utils/errors');
+const Weather = require('./weathers');
 
 /**
  * 
@@ -18,62 +19,35 @@ const { throwError, errors } = require('../utils/errors');
  *        items:
  *          allOf:
  *            - $ref: '#/definitions/Weather'
- *
- *  Weather:
- *    type: object
- *    properties:
- *      dateTime:
- *        type: string
- *      details:
- *        type: array
- *        items:
- *          allOf:
- *            - $ref: '#/definitions/WeatherDetails'
- * 
- *  WeatherDetails:
- *    type: object
- *    properties:
- *      name:
- *        type: strin
- *      description:
- *        type: string
- *  
  */
-const cityDTO = (city) => {
-    return {
-        name: city.name,
-        country: city.country,
-        weather: city.weathers ? city.weathers.map(weather => weatherDTO(weather)) : undefined
+
+
+module.exports = class City {
+
+    constructor(city) {
+        this.name = city.name,
+        this.country = city.country,
+        this.weather = city.weather
     }
-}
 
-const weatherDTO = (weather) => {
-    return {
-        dateTime: weather.dt,
-        details: weather.weather.map(w => ({
-            name: w.main,
-            description: w.description
-        }))
+    static findAll(onlyWithWeather) {
+        const cities = onlyWithWeather
+            ? cityList.reduce((arr, city) => {
+                const weather = Weather.findByCityId(city.id)
+                if (weather) {
+                    arr.push({
+                        ...city,
+                        weather: weather
+                    })
+                }
+                return arr
+            }, [])
+            : cityList
+        return cities.map(city => new City(city));
     }
-}
 
-exports.findAll = (onlyWithWeather) => {
-    const cities = onlyWithWeather
-        ? cityList.reduce((arr, city) => {
-            const weather = weatherList.find(weather => weather.cityId === city.id)
-            if (weather) {
-                arr.push({
-                    ...city,
-                    weathers: weather.data
-                })
-            }
-            return arr
-        }, [])
-        : cityList
-    return cities.map(city => cityDTO(city));
-}
-
-exports.findById = (id) => {
-    const city = cityList.find(city => city.id === id)
-    return city ? city : throwError(errors.NOT_FOUND) 
+    static findById(id) {
+        const city = cityList.find(city => city.id === id)
+        return city ? city : throwError(errors.NOT_FOUND) 
+    }
 }
