@@ -13,8 +13,10 @@ const { cityList, weatherList } = require('../data/index.js');
  *      country:
  *        type: string
  *      weather:
- *        allOf:
- *          - $ref: '#/definitions/Weather'
+ *        type: array
+ *        items:
+ *          allOf:
+ *            - $ref: '#/definitions/Weather'
  *
  *  Weather:
  *    type: object
