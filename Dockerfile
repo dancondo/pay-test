@@ -23,3 +23,7 @@ ENV NODE_ENV=development
 RUN npm install --only=development
 
 CMD ["nodemon", "./index.js"]
+
+FROM dev as test
+
+CMD ["npm", "test"]
