@@ -1,4 +1,4 @@
-FROM node:12.14.1-alpine3.9 as production
+FROM node:12.14.1-alpine3.9 as prod
 
 WORKDIR /app/node_app
 

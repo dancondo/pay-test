@@ -5,7 +5,7 @@
 https://docs.docker.com/install/linux/docker-ce/ubuntu/
 
 # build production image
-$ docker image build -t pay-test --target prod .
+$ docker image build -t pay-test:prod --target prod .
 
 # start container
 $ docker container run -p 3000:3000 pay-test:prod
