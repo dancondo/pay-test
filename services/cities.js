@@ -25,11 +25,11 @@ const Weather = require('./weathers');
 module.exports = class City {
 
     constructor(city) {
-        this.name = city.name,
-        this.country = city.country,
+        this.name = city.name
+        this.country = city.country
         this.weather = city.weather
     }
-
+    
     static findAll(onlyWithWeather) {
         const cities = onlyWithWeather
             ? cityList.reduce((arr, city) => {
@@ -46,10 +46,10 @@ module.exports = class City {
         return cities.map(city => new City(city));
     }
 
-    static findById(id) {
+    static findById(id, weatherWhere) {
         const city = cityList.find(city => city.id === id)
         if (city) {
-            city.weather = Weather.findByCityId(city.id)
+            city.weather = Weather.findByCityId(city.id, weatherWhere)
             return new City(city);
         }
         return throwError(errors.NOT_FOUND) 
