@@ -11,8 +11,8 @@ describe('Should be able to fetch the weather of a city', () => {
         attribute: 'dateTime',
         adapter: 'dataTimeAdapter',
         params: {
-            maxVal: '2017/03/10',
-            minVal: '2017/03/20'
+            maxVal: '2017/03/20',
+            minVal: '2017/03/10'
         }
     }
 
@@ -42,12 +42,12 @@ describe('Should be able to fetch the weather of a city', () => {
 
     it('Should be able to filter the weather by time range', () => {
         Weather.findByCityId(cityId, where).forEach(weather => {
-            const weatherDt = moment(weather).valueOf()
-            const minVal = moment(where.params.minVal).valueOf()
-            const maxVal = moment(where.params.maxVal).valueOf()
+            const weatherDt = moment(weather.dateTime, 'YYYY/MM/DD').valueOf()
+            const minVal = moment(where.params.minVal, 'YYYY/MM/DD').valueOf()
+            const maxVal = moment(where.params.maxVal, 'YYYY/MM/DD').valueOf()
             
             expect(weatherDt).toBeGreaterThanOrEqual(minVal)
-            expect(weatherDt).toBeLesserThanOrEqual(maxVal)
+            expect(weatherDt).toBeLessThanOrEqual(maxVal)
         })
     })
 
