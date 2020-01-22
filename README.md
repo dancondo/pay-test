@@ -1,31 +1,64 @@
-# REGRAS GERAIS
-- O projeto deve ser desenvolvido em Elixir, Ruby ou Node.js
-- Você pode usar quaisquer bibliotecas de terceiros ou frameworks
-- Seu projeto deve rodar com docker
+## Build Setup - Docker (prod)
 
-## Você deverá criar uma api de previsão de tempo onde os requisitos são:
-- Lista de cidades
-- Lista de cidades que possuem um clima disponível com a informação do clima
-- Visualizar uma cidade X com o seu clima
-- Visualizar uma cidade X com o seu clima e filtrar o clima em um range de tempo Ex. (2017-03-12 até 2017-03-21)
-- Testes
-- Documentação
+``` bash
+# install docker
+https://docs.docker.com/install/linux/docker-ce/ubuntu/
 
-### Bônus
-- Filtrar a lista de cidades por latitude e longitude
-- Desenvolvimento da api em Elixir
-- Desenvolvimento em mais uma linguagem a sua escolha, preferencialmente funcional
+# build production image
+$ docker image build -t pay-test --target prod .
 
-## Desenvolvimento
+# start container
+$ docker container run -p 3000:3000 pay-test:prod
 
-Não faça um fork do projeto, você pode fazer um clone e subir em seu próprio git ou nos enviar um zip contendo o .git.
+```
 
-Faça commits durante o desenvolvimento do projeto, é importante para analisarmos a sua linha de pensamento.
+## Build Setup - Docker (dev)
 
-Não é necessário utilizar banco de dados, você somente deve utilizar como os dois arquivos "city_list.json" e "weather_list.json".
+``` bash
+# build development image
+$ docker image build -t pay-test --target dev .
 
-## O que iremos analisar:
-- Seu conhecimento geral sobre APIs REST
-- Como você organiza/estrutura seu código
-- Sua habilidade de entender uma documentação
+# start container
+$ docker container run -p 3000:3000 pay-test:dev
 
+```
+
+## Build Setup - Docker (test)
+
+``` bash
+# build test image
+$ docker image build -t pay-test --target test .
+
+# start container
+$ docker container run -p 3000:3000 pay-test:test
+
+```
+
+## Documentation
+
+### API DOCS
+
+After starting your container in production or development access localhost:3000/docs to read the docs.
+
+### FILE STRUCTURE AND APPLICATION LOGIC
+
+##### Data
+    Where the lists are located
+
+##### Services 
+    Most of application logic can be found under service folder. There are the classes definitions that interact with the given weather and cities lists.
+
+    All the services inherits from ApplicationServices to use base operations.
+
+##### Routes
+    There are two: Cities, which targets the city api and Docs, which sets up swagger.
+
+##### Controllers
+    Only one controller was made; the cities_controller.
+    There you can find two methods index, and show. Each of them are prepared to receive some paramenters to request more information or filter data in the server.
+
+##### Tests
+    Where the tests are located.
+
+#### Utils/erros
+    A file that contains error information and responses 
