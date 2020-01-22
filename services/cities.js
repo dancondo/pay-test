@@ -1,6 +1,7 @@
 const { cityList, weatherList } = require('../data/index.js');
 const { throwError, errors } = require('../utils/errors');
 const Weather = require('./weathers');
+const ApplicationServices = require('./application_services');
 
 /**
  * 
@@ -14,6 +15,10 @@ const Weather = require('./weathers');
  *        type: string
  *      country:
  *        type: string
+ *      latitude:
+ *        type: integer
+ *      longitude:
+ *        type: integer
  *      weather:
  *        type: array
  *        items:
@@ -22,15 +27,18 @@ const Weather = require('./weathers');
  */
 
 
-module.exports = class City {
+module.exports = class City extends ApplicationServices {
 
     constructor(city) {
+        super()
         this.name = city.name
         this.country = city.country
+        this.latitude = city.coord.lat
+        this.longitude = city.coord.lon
         this.weather = city.weather
     }
     
-    static findAll(onlyWithWeather) {
+    static findAll(onlyWithWeather, where) {
         const cities = onlyWithWeather
             ? cityList.reduce((arr, city) => {
                 const weather = Weather.findByCityId(city.id)
@@ -43,7 +51,7 @@ module.exports = class City {
                 return arr
             }, [])
             : cityList
-        return cities.map(city => new City(city));
+        return this.filter(cities, where);
     }
 
     static findById(id, weatherWhere) {

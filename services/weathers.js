@@ -43,19 +43,7 @@ module.exports = class Weather extends ApplicationServices {
     static findByCityId(cityId, where) { 
         const weathers = weatherList.find(weather => weather.cityId === cityId)
         return weathers
-            ? weathers.data.reduce((arr, weather) => {
-                const newWeather = new Weather(weather)
-                if (where && !newWeather[where.op]({
-                        ...where.params,
-                        adapter: where.adapter,
-                        val: newWeather[where.attribute],
-                    }))
-                {
-                    return arr
-                }
-                arr.push(newWeather)
-                return arr
-            }, [])
+            ? this.filter(weathers.data, where)
             : undefined
     }
 
