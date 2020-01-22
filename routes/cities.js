@@ -16,6 +16,26 @@ const citiesController = require('../controllers/cities_controller');
  *         description: Rather if should return only results with weather info
  *         required: false
  *         type: boolean
+ *       - in: query
+ *         name: start_lat
+ *         description: The start latitude that the city should be searched. Must be used with end_lat
+ *         required: false
+ *         type: float
+ *       - in: query
+ *         name: end_lat
+ *         description: The end latitude that the city should be searched. Must be used with start_lat
+ *         required: false
+ *         type: float
+ *       - in: query
+ *         name: start_lon
+ *         description: The start longitude that the city should be searched. Must be used with end_lat
+ *         required: false
+ *         type: float
+ *       - in: query
+ *         name: end_lon
+ *         description: The end longitude that the city should be searched. Must be used with start_lon
+ *         required: false
+ *         type: float
  *     responses:
  *       200:
  *         description: City list.
