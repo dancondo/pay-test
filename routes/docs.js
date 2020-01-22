@@ -3,7 +3,12 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerJSDoc = require('swagger-jsdoc');
 
 const options = {
-    swaggerDefinition: {},
+    swaggerDefinition: {
+        info: {
+            title: 'Pay Test API',
+            version: '1.0.0',
+        },
+    },
     apis: ['routes/*.js', 'services/*.js'],
 };
  
