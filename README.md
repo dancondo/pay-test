@@ -19,7 +19,7 @@ $ docker container run -p 3000:3000 pay-test:prod
 $ docker image build -t pay-test:dev --target dev .
 
 # start container
-$ docker container run -p 3000:3000 pay-test:dev
+$ docker container run -p 3000:3000 -v "$(pwd)":/app pay-test:dev
 
 ```
 
