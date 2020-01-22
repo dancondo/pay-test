@@ -16,7 +16,7 @@ $ docker container run -p 3000:3000 pay-test:prod
 
 ``` bash
 # build development image
-$ docker image build -t pay-test --target dev .
+$ docker image build -t pay-test:dev --target dev .
 
 # start container
 $ docker container run -p 3000:3000 pay-test:dev
@@ -27,7 +27,7 @@ $ docker container run -p 3000:3000 pay-test:dev
 
 ``` bash
 # build test image
-$ docker image build -t pay-test --target test .
+$ docker image build -t pay-test:test --target test .
 
 # start container
 $ docker container run -p 3000:3000 pay-test:test
