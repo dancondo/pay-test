@@ -3,7 +3,7 @@ const moment = require('moment');
 module.exports = class ApplicationServices {
 
     static filter(array, where) {
-        if (where.constructor.name === 'Array') {
+        if (where && where.constructor.name === 'Array') {
             let reducedArray = array
             for (let i = 0; i < where.length; i++) {
                 reducedArray = this.filter(reducedArray, where[i])
@@ -11,7 +11,7 @@ module.exports = class ApplicationServices {
             return reducedArray
         }
         return array.reduce((arr, item) => {
-            const newItem = item[where.op] ? item : new this(item)
+            const newItem = where && item[where.op] ? item : new this(item)
             if (where && !newItem[where.op]({
                     ...where.params,
                     adapter: where.adapter,
