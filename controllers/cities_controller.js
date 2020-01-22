@@ -1,5 +1,3 @@
-const moment = require('moment');
-
 const City = require('../services/cities');
 
 exports.index = (req, res, next) => {
