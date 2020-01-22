@@ -1,3 +1,5 @@
+const moment = require('moment');
+
 const City = require('../services/cities');
 
 exports.index = (req, res, next) => {
@@ -9,8 +11,19 @@ exports.index = (req, res, next) => {
 }
 
 exports.show = (req, res, next) => {
-    const id = JSON.parse(req.params.id)
+    const id = parseInt(req.params.id)
+    const endDate = req.query.end_date
+    const startDate = req.query.start_date
+    const where = startDate && endDate && {
+        op: 'inRange',
+        attribute: 'dateTime',
+        adapter: 'dataTimeAdapter',
+        params: {
+            maxVal: endDate,
+            minVal: startDate
+        }
+    }
     return res.status(200).json({
-        city: City.findById(id)
+        city: City.findById(id, where)
     })
 }

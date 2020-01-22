@@ -41,6 +41,18 @@ router.get('/', citiesController.index);
  *         description: The id of the city you are searching for
  *         required: true
  *         type: integer
+ *       - in: query
+ *         name: start_date
+ *         description: The start date that the climate should be searched. Must be used with end_date
+ *         required: false
+ *         type: string
+ *         format: date
+ *       - in: query
+ *         name: end_date
+ *         description: The start date that the climate should be searched. Must be used with end_date
+ *         required: false
+ *         type: string
+ *         format: date
  *     responses:
  *       200:
  *         description: A City and its weather
