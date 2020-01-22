@@ -1,4 +1,4 @@
-FROM node:12.14.1-alpine3.9 as prod
+FROM node:12.14.1 as prod
 
 WORKDIR /app
 
@@ -10,7 +10,9 @@ ENV NODE_ENV=production
 
 COPY package.json ./
 
-RUN npm install ci && npm cache clean --force
+RUN npm config list
+
+RUN npm install --only=prod && npm cache clean --force
 
 ENV PATH /app/node_modules/.bin:$PATH
 
