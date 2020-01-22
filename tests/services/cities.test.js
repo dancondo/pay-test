@@ -3,7 +3,7 @@ const City = require('../../services/cities')
 describe('Should be able to fetch all cities', () => {
 
     const result = City.findAll()
-    const resultItem = result[Math.floor(Math.random() * 10)]
+    const city = result[Math.floor(Math.random() * 10)]
     const latWhere = {
         op: 'inRange',
         attribute: 'latitude',
@@ -25,22 +25,22 @@ describe('Should be able to fetch all cities', () => {
     }
 
     it('Expects to have an array as return value', () => {
-        expect(result.constructor.name).toBe('Array');
+        expect(result).toBeInstanceOf(Array);
     })
 
     it('Expects that the items are Cities', () => {
-        expect(resultItem).toBeInstanceOf(City);
+        expect(city).toBeInstanceOf(City);
     })
 
     it('Expects that a city has name, country, latitude, longitude attributes', () => {
-        expect(resultItem).toHaveProperty('name')
-        expect(resultItem).toHaveProperty('country')
-        expect(resultItem).toHaveProperty('latitude')
-        expect(resultItem).toHaveProperty('longitude')
+        expect(city).toHaveProperty('name')
+        expect(city).toHaveProperty('country')
+        expect(city).toHaveProperty('latitude')
+        expect(city).toHaveProperty('longitude')
     })
 
     it('Expects that a city does not has a weather, if the user set it to false or does not pass any argument', () => {
-        !expect(resultItem).toHaveProperty('weather')
+        !expect(city).toHaveProperty('weather')
         !expect(City.findAll(false)[0]).toHaveProperty('weather')
     })
 
@@ -71,6 +71,29 @@ describe('Should be able to fetch all cities', () => {
             expect(city.longitude).toBeGreaterThanOrEqual(lonWhere.params.minVal)
             expect(city.longitude).toBeLesserThanOrEqual(lonWhere.params.maxVal)
         })
+    })
+
+})
+
+describe('It shoud be able to fetch one city', () => {
+
+    const city = City.findById(3531732)
+
+    it('Expects to throw an 404 Not found error if no city is found', () => {
+        expect(() => City.findById(1)).toThrow()
+        expect(() => City.findById(1)).toThrow({ statusCode: 404, message: 'Not Found' })
+    })
+
+    it('Expects to return a city if  it is found', () => {
+        expect(city).toBeInstanceOf(City)
+    })
+
+    it('Expects that a city has name, country, latitude, longitude, and weather attributes', () => {
+        expect(city).toHaveProperty('name')
+        expect(city).toHaveProperty('country')
+        expect(city).toHaveProperty('latitude')
+        expect(city).toHaveProperty('longitude')
+        expect(city).toHaveProperty('weather')
     })
 
 })
