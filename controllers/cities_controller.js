@@ -35,7 +35,7 @@ exports.index = (req, res, next) => {
     }
 
     return res.status(200).json({
-        cities: City.findAll(onlyWithWeather, where)
+        cities: City.findAll(onlyWithWeather, where.length > 0 ? where : null)
     })
 }
 
