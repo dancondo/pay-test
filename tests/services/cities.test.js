@@ -9,8 +9,8 @@ describe('Should be able to fetch all cities', () => {
         attribute: 'latitude',
         adapter: 'floatAdapter',
         params: {
-            maxVal: 19.84,
-            minVal: 20.4
+            maxVal: 25,
+            minVal: 15
         }
     }
 
@@ -19,8 +19,8 @@ describe('Should be able to fetch all cities', () => {
         attribute: 'latitude',
         adapter: 'floatAdapter',
         params: {
-            maxVal: -91,
-            minVal: -71.9
+            maxVal: -30.9,
+            minVal: -92
         }
     }
 
@@ -53,23 +53,23 @@ describe('Should be able to fetch all cities', () => {
     it('Expects to filter cities by latitude', () => {
         City.findAll(false, latWhere).forEach(city => {
             expect(city.latitude).toBeGreaterThanOrEqual(latWhere.params.minVal)
-            expect(city.latitude).toBeLesserThanOrEqual(latWhere.params.maxVal)
+            expect(city.latitude).toBeLessThanOrEqual(latWhere.params.maxVal)
         })
     })
 
     it('Expects to filter cities by longitude', () => {
         City.findAll(false, lonWhere).forEach(city => {
             expect(city.longitude).toBeGreaterThanOrEqual(lonWhere.params.minVal)
-            expect(city.longitude).toBeLesserThanOrEqual(lonWhere.params.maxVal)
+            expect(city.longitude).toBeLessThanOrEqual(lonWhere.params.maxVal)
         })
     })
 
     it('Expects to filter cities by latitude and longitude', () => {
         City.findAll(false, [latWhere, lonWhere]).forEach(city => {
             expect(city.latitude).toBeGreaterThanOrEqual(latWhere.params.minVal)
-            expect(city.latitude).toBeLesserThanOrEqual(latWhere.params.maxVal)
+            expect(city.latitude).toBeLessThanOrEqual(latWhere.params.maxVal)
             expect(city.longitude).toBeGreaterThanOrEqual(lonWhere.params.minVal)
-            expect(city.longitude).toBeLesserThanOrEqual(lonWhere.params.maxVal)
+            expect(city.longitude).toBeLessThanOrEqual(lonWhere.params.maxVal)
         })
     })
 
